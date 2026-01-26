@@ -1,0 +1,138 @@
+
+/* navbar */
+
+.navbar {
+  background-color: var(--bg-secondary);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.navbar-logo {
+  color: var(--text-accent);
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-logo-icon {
+  width: 32px;
+  height: 32px;
+  background-color: var(--accent-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #CCCCFF;
+  font-weight: bold;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-user-info {
+  color: var(--text-accent);
+  text-align: right;
+}
+
+.navbar-user-name {
+  font-weight: 600;
+}
+
+.navbar-user-email {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.navbar-logout-btn {
+  background-color: var(--accent-secondary);
+  color: var(--text-accent);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--accent-primary);
+  transition: all 0.3s;
+}
+
+.navbar-logout-btn:hover {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+.theme-toggle-btn {
+  background-color: var(--accent-secondary);
+  color: var(--text-accent);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border: 1px solid var(--accent-primary);
+  transition: all 0.3s;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--accent-primary);
+  transform: scale(1.05);
+}
+
+/* sidebar */
+
+.sidebar {
+  width: 250px;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.sidebar-header {
+  padding: 0 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-greeting {
+  font-size: 1.1rem;
+  color: var(--text-accent);
+  font-weight: 600;
+}
+
+.sidebar-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.sidebar-nav {
+  padding: 1rem 0;
+}
+
+.sidebar-nav-item {
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  transition: all 0.3s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-nav-item:hover {
+  background-color: var(--accent-secondary);
+  color: var(--text-accent);
+}
+
+.sidebar-nav-item.active {
+  background-color: var(--accent-secondary);
+  color: var(--text-accent);
+  border-left-color: var(--accent-primary);
+  font-weight: 600;
+}

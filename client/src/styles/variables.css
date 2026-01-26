@@ -1,0 +1,89 @@
+/*global variables & theme */
+:root {
+  /*default dark mode */
+  --bg-primary: #121218;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #1a1a2e;
+  --text-primary: #e6e6fa;
+  --text-secondary: #A3A3CC;
+  --text-accent: #CCCCFF;
+  --accent-primary: #5C5C99;
+  --accent-secondary: #292966;
+  --border-color: #292966;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --card-bg: #1a1a2e;
+  --input-bg: #121218;
+  --btn-text: white;
+  --btn-hover: #4b4b80;
+  
+  /*status colors (same for both of them) */
+  --status-low-bg: rgba(0, 204, 0, 0.2);
+  --status-low-text: #00cc00;
+  --status-medium-bg: rgba(255, 170, 0, 0.2);
+  --status-medium-text: #ffaa00;
+  --status-high-bg: rgba(204, 0, 0, 0.2);
+  --status-high-text: #ff4444;
+}
+
+body.light-mode {
+  /*light theme overrides */
+  --bg-primary: #f5f5fa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ffffff;
+  --text-primary: #292966;
+  --text-secondary: #5C5C99;
+  --text-accent: #292966;
+  --accent-primary: #5C5C99;
+  --accent-secondary: #CCCCFF;
+  --border-color: #CCCCFF;
+  --shadow-color: rgba(41, 41, 102, 0.1);
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --btn-text: white;
+  --btn-hover: #292966;
+  
+  /*adjusted status colors for light mode */
+  --status-low-bg: #e6ffe6;
+  --status-medium-bg: #fff3e6;
+  --status-high-bg: #ffe6e6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+  overflow-y: auto; 
+}
+
+/*fixing the Auth Page to prevent scrollbar */
+body:has(.auth-page) {
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 1rem;
+}
