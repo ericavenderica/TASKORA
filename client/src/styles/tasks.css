@@ -1,6 +1,6 @@
-/* ========================================
-   DASHBOARD & TASKS
-   ======================================== */
+
+/* dashboard & tasks */
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;
@@ -37,7 +37,7 @@
   background-color: var(--btn-hover);
 }
 
-/* Stats Cards */
+/* stats card */
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -96,9 +96,8 @@
   font-size: 0.9rem;
 }
 
-/* ========================================
-   TASK LIST
-   ======================================== */
+/*task list*/
+
 .task-section {
   background-color: var(--card-bg);
   border-radius: 12px;
@@ -110,7 +109,7 @@
 }
 
 .task-section.full-height {
-  min-height: 60vh; /* Make it bigger vertically */
+  min-height: 60vh; 
 }
 
 .task-section-header {
@@ -152,7 +151,8 @@
   color: white;
 }
 
-/* Task Items */
+/* task items */
+
 .task-list {
   display: flex;
   flex-direction: column;
@@ -307,7 +307,7 @@
   justify-content: center;
   text-align: center;
   padding: 3rem;
-  padding-bottom: 5rem; /* Make space for button */
+  padding-bottom: 5rem; 
   color: var(--text-secondary);
   position: relative;
 }

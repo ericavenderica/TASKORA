@@ -1,6 +1,6 @@
-/* ========================================
-   RESPONSIVE
-   ======================================== */
+
+/*responsive */
+
 @media (max-width: 768px) {
   .main-layout {
     flex-direction: column;
