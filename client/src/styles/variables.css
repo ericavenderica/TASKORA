@@ -16,7 +16,7 @@
   --btn-text: white;
   --btn-hover: #4b4b80;
   
-  /* Status Colors */
+  /*status colors */
   --status-low-bg: rgba(0, 204, 0, 0.2);
   --status-low-text: #00cc00;
   --status-medium-bg: rgba(255, 170, 0, 0.2);
@@ -38,6 +38,8 @@ body.light-mode {
   --border-color: #CCCCFF;
   --shadow-color: rgba(41, 41, 102, 0.1);
   --card-bg: #ffffff;
+  --task-item-bg: #f9f9ff;
+  --action-btn-bg: rgba(0, 0, 0, 0.05);
   --input-bg: #ffffff;
   --btn-text: white;
   --btn-hover: #292966;
