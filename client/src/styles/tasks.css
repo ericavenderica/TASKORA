@@ -165,16 +165,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem;
-  background-color: #0d0d12;
+  background-color: var(--task-item-bg);
   border-radius: 12px;
   border-left: 5px solid;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
   margin-bottom: 0.5rem;
 }
 
 .task-item:hover {
   transform: translateX(5px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .task-left {
@@ -246,18 +246,18 @@
 }
 
 .task-priority.low {
-  background-color: rgba(0, 204, 0, 0.15);
-  color: #00cc00;
+  background-color: var(--status-low-bg);
+  color: var(--status-low-text);
 }
 
 .task-priority.medium {
-  background-color: rgba(255, 170, 0, 0.15);
-  color: #ffaa00;
+  background-color: var(--status-medium-bg);
+  color: var(--status-medium-text);
 }
 
 .task-priority.high {
-  background-color: rgba(255, 68, 68, 0.15);
-  color: #ff4444;
+  background-color: var(--status-high-bg);
+  color: var(--status-high-text);
 }
 
 .task-date {

@@ -12,6 +12,8 @@
   --border-color: #292966;
   --shadow-color: rgba(0, 0, 0, 0.5);
   --card-bg: #1a1a2e;
+  --task-item-bg: #0d0d12;
+  --action-btn-bg: rgba(255, 255, 255, 0.05);
   --input-bg: #121218;
   --btn-text: white;
   --btn-hover: #4b4b80;
