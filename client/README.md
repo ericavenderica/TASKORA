@@ -1,16 +1,101 @@
-# React + Vite
+# Taskora 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Taskora is a modern, full-stack project management application built with the MERN stack (MongoDB, Express.js, React, Node.js). It helps you organize your tasks efficiently with features like priority filtering, dark mode, and a responsive user interface.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Authentication**: Secure Login and Registration using JWT.
+- **Task Management**: Create, Read, Update, and Delete (CRUD) tasks.
+- **Filtering**: Filter tasks by status (Pending/Completed) and Priority (High/Medium/Low).
+- **Dashboard**: Overview of task statistics and recent activity.
+- **Theming**: Built-in Dark Mode and Light Mode toggle.
+- **Responsive Design**: Optimized for desktop and mobile devices.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React (Vite), React Router, Axios, Custom CSS.
+- **Backend**: Node.js, Express.js.
+- **Database**: MongoDB (Mongoose).
+- **Authentication**: JSON Web Tokens (JWT) & Bcrypt.
 
-## Expanding the ESLint configuration
+## ⚙️ Prerequisites
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Before you begin, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [MongoDB](https://www.mongodb.com/try/download/community) (running locally or a cloud Atlas URI)
+
+## 🚀 Getting Started
+
+Follow these steps to set up the project locally.
+
+### 1. Clone the Repository
+
+If you haven't already, navigate to the project folder:
+```bash
+cd Taskora
+```
+
+### 2. Backend Setup (Server)
+
+Navigate to the server folder and install dependencies:
+
+```bash
+cd Taskora-Server/server
+npm install
+```
+
+Start the backend server:
+
+```bash
+npm run dev
+```
+*The server will run on `http://localhost:5005`*
+
+### 3. Frontend Setup (Client)
+
+Open a new terminal, navigate to the client folder, and install dependencies:
+
+```bash
+cd client
+npm install
+```
+
+Start the frontend development server:
+
+```bash
+npm run dev
+```
+*The client will run on `http://localhost:5173` (or similar port shown in terminal)*
+
+## 📂 Project Structure
+
+```
+Taskora/
+├── client/          # Frontend React Application
+│   ├── src/
+│   │   ├── components/  # Reusable UI components (Navbar, Sidebar, Modals)
+│   │   ├── contexts/    # React Contexts (Auth, Theme)
+│   │   ├── pages/       # Application Pages (Dashboard, Tasks, Login)
+│   │   └── App.css      # Global Styles & Theming
+│   └── package.json
+│
+└── Taskora-Server/  # Backend Node.js Application
+    └── server/
+        ├── models/      # Mongoose Database Models
+        ├── routes/      # API Routes (Auth, Tasks)
+        ├── middleware/  # Auth Middleware
+        └── server.js    # Entry Point
+```
+
+## 📝 Usage
+
+1.  **Register** a new account.
+2.  **Login** to access your dashboard.
+3.  Use the **"Add New Task"** button to create tasks.
+4.  Use the **Sidebar** to navigate between Dashboard, All Tasks, Pending, and Completed.
+5.  Use the **Priority Buttons** (High, Medium, Low) to filter your view.
+6.  Toggle the **Sun/Moon icon** in the navbar to switch themes.
+
+---
+*Created for IronHack Project*
+Frontend application for Taskora.

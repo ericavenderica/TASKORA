@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--bg-primary);
-  overflow: hidden; /* Prevent scrolling */
+  overflow: hidden; /*to prevent scrolling */
 }
 
 .auth-container {
@@ -84,6 +84,35 @@
 .form-group input:focus {
   outline: none;
   border-color: var(--accent-primary);
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 3rem; 
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.password-toggle-btn:hover {
+  color: var(--text-accent);
 }
 
 .auth-btn {

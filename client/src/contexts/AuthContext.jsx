@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Set auth token header for all requests
+  //settting the auth token header for all requests
   const setAuthToken = (token) => {
     if (token) {
       axios.defaults.headers.common["x-auth-token"] = token;
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/me");
+        const res = await axios.get("http://localhost:5005/api/auth/me");
         setUser(res.data);
         setIsAuthenticated(true);
       } catch (err) {
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     loadUser();
-  }, []); // Run once on mount
+  }, []); 
 
   const register = async (formData) => {
     const config = {
@@ -53,14 +53,14 @@ export const AuthProvider = ({ children }) => {
     };
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", formData, config);
+      const res = await axios.post("http://localhost:5005/api/auth/register", formData, config);
       
       localStorage.setItem("token", res.data.token);
       setToken(res.data.token);
       setAuthToken(res.data.token);
       
-      // Load user immediately after register
-      const userRes = await axios.get("http://localhost:5000/api/auth/me");
+      //to load user quick after register
+      const userRes = await axios.get("http://localhost:5005/api/auth/me");
       setUser(userRes.data);
       setIsAuthenticated(true);
       return { success: true };

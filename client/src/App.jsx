@@ -1,15 +1,16 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Navbar from "./components/NavBar";
 import Sidebar from "./components/SideBar";
 import Dashboard from "./pages/Dashboard";
 import Tasks from "./pages/Tasks";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppContent() {
   const location = useLocation();
-  const hideSidebar = ["/login", "/register"].includes(location.pathname);
+  const hideSidebar = ["/login", "/register", "/not-found"].includes(location.pathname);
 
   return (
     <div className="app-container">
@@ -24,6 +25,8 @@ function AppContent() {
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
             <Route path="/tasks/:filter" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
+            <Route path="/not-found" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/not-found" replace />} />
           </Routes>
         </main>
       </div>

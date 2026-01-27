@@ -1,68 +1,31 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import TaskItem from "../components/TaskItem";
 import TaskModal from "../components/TaskModal";
 import ConfirmationModal from "../components/ConfirmationModal";
 import { AuthContext } from "../contexts/AuthContext";
-import axios from "axios";
+import { TaskContext } from "../contexts/TaskContext";
 import { Link } from "react-router-dom";
-
-const API_URL = "http://localhost:5005/api";
 
 function Dashboard() {
   const { isAuthenticated } = useContext(AuthContext);
-  const [tasks, setTasks] = useState([]);
+  const { tasks, loading, addTask, updateTask, deleteTask } = useContext(TaskContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [editTask, setEditTask] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, taskId: null });
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      if (!isAuthenticated) {
-        setLoading(false);
-        return;
-      }
-      try {
-        const res = await axios.get(`${API_URL}/tasks`);
-        setTasks(res.data);
-      } catch (err) {
-        console.error("Error fetching tasks:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTasks();
-  }, [isAuthenticated]);
-
   const handleAddOrUpdate = async (taskData) => {
-    try {
-      if (editTask) {
-        const res = await axios.put(`${API_URL}/tasks/${editTask._id}`, taskData);
-        setTasks((prev) =>
-          prev.map((t) => (t._id === editTask._id ? res.data : t))
-        );
-        setEditTask(null);
-      } else {
-        const res = await axios.post(`${API_URL}/tasks`, taskData);
-        setTasks((prev) => [res.data, ...prev]);
-      }
-    } catch (err) {
-      console.error("Error saving task:", err);
+    if (editTask) {
+      await updateTask(editTask._id, taskData);
+      setEditTask(null);
+    } else {
+      await addTask(taskData);
     }
   };
 
   const handleToggleComplete = async (id) => {
-    try {
-      const task = tasks.find((t) => t._id === id);
-      const updatedTask = { ...task, completed: !task.completed };
-      setTasks((prev) =>
-        prev.map((t) => (t._id === id ? updatedTask : t))
-      );
-      await axios.put(`${API_URL}/tasks/${id}`, {
-        completed: updatedTask.completed,
-      });
-    } catch (err) {
-      console.error("Error updating task:", err);
+    const task = tasks.find((t) => t._id === id);
+    if (task) {
+      await updateTask(id, { completed: !task.completed });
     }
   };
 
@@ -72,13 +35,8 @@ function Dashboard() {
 
   const handleConfirmDelete = async () => {
     if (!confirmModal.taskId) return;
-    try {
-      await axios.delete(`${API_URL}/tasks/${confirmModal.taskId}`);
-      setTasks((prev) => prev.filter((t) => t._id !== confirmModal.taskId));
-      setConfirmModal({ isOpen: false, taskId: null });
-    } catch (err) {
-      console.error("Error deleting task:", err);
-    }
+    await deleteTask(confirmModal.taskId);
+    setConfirmModal({ isOpen: false, taskId: null });
   };
 
   const handleEdit = (task) => {
@@ -93,7 +51,6 @@ function Dashboard() {
   const lowPriority = tasks.filter(t => t.priority === 'low').length;
   const mediumPriority = tasks.filter(t => t.priority === 'medium').length;
   const highPriority = tasks.filter(t => t.priority === 'high').length;
-  const completionRate = totalTasks ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   if (loading) return <div className="loading"><div className="loading-spinner"></div></div>;
 

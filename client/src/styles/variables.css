@@ -16,7 +16,7 @@
   --btn-text: white;
   --btn-hover: #4b4b80;
   
-  /*status colors (same for both of them) */
+  /* Status Colors */
   --status-low-bg: rgba(0, 204, 0, 0.2);
   --status-low-text: #00cc00;
   --status-medium-bg: rgba(255, 170, 0, 0.2);
@@ -60,10 +60,10 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   transition: background-color 0.3s, color 0.3s;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
-/*fixing the Auth Page to prevent scrollbar */
+/* auth page scroll handle */
 body:has(.auth-page) {
   overflow: hidden;
 }

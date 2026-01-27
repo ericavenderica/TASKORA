@@ -1,43 +1,22 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import TaskItem from "../components/TaskItem";
 import TaskModal from "../components/TaskModal";
 import ConfirmationModal from "../components/ConfirmationModal";
 import { AuthContext } from "../contexts/AuthContext";
+import { TaskContext } from "../contexts/TaskContext";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-
-const API_URL = "http://localhost:5005/api";
 
 function Tasks() {
-  const { token, isAuthenticated } = useContext(AuthContext);
-  const { filter } = useParams(); // pending / completed
-  const [tasks, setTasks] = useState([]);
+  const { isAuthenticated } = useContext(AuthContext);
+  const { tasks, loading, addTask, updateTask, deleteTask } = useContext(TaskContext);
+  const { filter } = useParams(); // pending or completed
   const [modalOpen, setModalOpen] = useState(false);
   const [editTask, setEditTask] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, taskId: null });
   const [priorityFilter, setPriorityFilter] = useState('all');
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      if (!isAuthenticated) {
-        setLoading(false);
-        return;
-      }
-      try {
-        const res = await axios.get(`${API_URL}/tasks`);
-        setTasks(res.data);
-      } catch (err) {
-        console.error("Error fetching tasks:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTasks();
-  }, [isAuthenticated, token]);
-
   const filteredTasks = tasks.filter((t) => {
-    //filter by status (route param)
+    //filter by status
     const statusMatch = filter 
       ? (filter === "completed" ? t.completed : !t.completed)
       : true;
@@ -51,44 +30,18 @@ function Tasks() {
   });
 
   const handleAddOrUpdate = async (taskData) => {
-    try {
-      if (editTask) {
-        //update existing task
-        const res = await axios.put(`${API_URL}/tasks/${editTask._id}`, taskData);
-        setTasks((prev) =>
-          prev.map((t) => (t._id === editTask._id ? res.data : t))
-        );
-        setEditTask(null);
-      } else {
-        //create new task
-        const res = await axios.post(`${API_URL}/tasks`, taskData);
-        setTasks((prev) => [res.data, ...prev]);
-      }
-    } catch (err) {
-      console.error("Error saving task:", err);
+    if (editTask) {
+      await updateTask(editTask._id, taskData);
+      setEditTask(null);
+    } else {
+      await addTask(taskData);
     }
   };
 
   const handleToggleComplete = async (id) => {
-    try {
-      const task = tasks.find((t) => t._id === id);
-      const updatedTask = { ...task, completed: !task.completed };
-      
-      //setting tasks
-      setTasks((prev) =>
-        prev.map((t) => (t._id === id ? updatedTask : t))
-      );
-
-      await axios.put(`${API_URL}/tasks/${id}`, {
-        completed: updatedTask.completed,
-      });
-    } catch (err) {
-      console.error("Error updating task:", err);
-      //revert if error
-      const task = tasks.find((t) => t._id === id);
-       setTasks((prev) =>
-        prev.map((t) => (t._id === id ? task : t))
-      );
+    const task = tasks.find((t) => t._id === id);
+    if (task) {
+      await updateTask(id, { completed: !task.completed });
     }
   };
 
@@ -98,13 +51,8 @@ function Tasks() {
 
   const handleConfirmDelete = async () => {
     if (!confirmModal.taskId) return;
-    try {
-      await axios.delete(`${API_URL}/tasks/${confirmModal.taskId}`);
-      setTasks((prev) => prev.filter((t) => t._id !== confirmModal.taskId));
-      setConfirmModal({ isOpen: false, taskId: null });
-    } catch (err) {
-      console.error("Error deleting task:", err);
-    }
+    await deleteTask(confirmModal.taskId);
+    setConfirmModal({ isOpen: false, taskId: null });
   };
 
   const handleEdit = (task) => {
@@ -116,13 +64,13 @@ function Tasks() {
     return <div className="loading"><div className="loading-spinner"></div></div>;
   }
 
-  let pageIcon = "📋"; // Default All Tasks
+  let pageIcon = "📋"; 
   if (filter === "pending") pageIcon = "⏳";
   else if (filter === "completed") pageIcon = "✅";
 
   return (
     <div className="page-container">
-      {/* Page Header with Title and Add Button */}
+      {/*page header with title and add button */}
       <div className="page-header">
         <div className="page-title">
           <div className="title-icon">{pageIcon}</div>
@@ -137,7 +85,7 @@ function Tasks() {
       </div>
 
       <div className="task-section full-height">
-        {/* Task Section Header with "Tasks" and Priority Filters */}
+        {/*task section header with "tasks" and triority filters */}
         <div className="task-section-header">
           <div className="task-section-title">
             <h2>Tasks</h2>
