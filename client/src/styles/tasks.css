@@ -1,5 +1,5 @@
 
-/* dashboard & tasks */
+/*dashboard & task layout */
 
 .dashboard-header {
   display: flex;
@@ -37,7 +37,6 @@
   background-color: var(--btn-hover);
 }
 
-/* stats card */
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -96,7 +95,7 @@
   font-size: 0.9rem;
 }
 
-/*task list*/
+/*task list layout */
 
 .task-section {
   background-color: var(--card-bg);
@@ -151,7 +150,7 @@
   color: white;
 }
 
-/* task items */
+/*task item styles */
 
 .task-list {
   display: flex;

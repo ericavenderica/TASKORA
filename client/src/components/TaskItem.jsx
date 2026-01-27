@@ -15,8 +15,30 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
           onChange={() => onToggleComplete(task._id)}
         />
         <div className="task-content">
-          <h4 className="task-title">{task.title}</h4>
-          {task.description && <p className="task-description">{task.description}</p>}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
+            <h4 className="task-title" style={{ margin: 0 }}>{task.title}</h4>
+            <div className="task-categories" style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+              {(task.categories || []).map(cat => (
+                <span key={cat} className="category-tag" style={{
+                  backgroundColor: 
+                    cat === 'Work' ? '#5C5C99' :
+                    cat === 'Personal' ? '#00cc00' :
+                    cat === 'Urgent' ? '#ff4444' :
+                    cat === 'Ideas' ? '#ff00ff' : '#5C5C99',
+                  color: 'white',
+                  padding: '1px 6px',
+                  borderRadius: '4px',
+                  fontSize: '0.65rem',
+                  fontWeight: '700',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px'
+                }}>
+                  {cat}
+                </span>
+              ))}
+            </div>
+          </div>
+          {task.description && <p className="task-description" style={{ margin: 0 }}>{task.description}</p>}
         </div>
       </div>
       

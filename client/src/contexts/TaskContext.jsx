@@ -4,15 +4,17 @@ import { AuthContext } from "./AuthContext";
 
 export const TaskContext = createContext();
 
+// API configuration
 const API_URL = "http://localhost:5005/api";
 
 export const TaskProvider = ({ children }) => {
   const { isAuthenticated } = useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  //fetch tasks function
+  //fetch tasks
   const fetchTasks = useCallback(async (force = false) => {
     if (!isAuthenticated) return;
     
@@ -33,14 +35,27 @@ export const TaskProvider = ({ children }) => {
     }
   }, [isAuthenticated, tasks.length]);
 
-  //the initial fetch when authenticated
+  // Fetch categories
+  const fetchCategories = useCallback(async () => {
+    if (!isAuthenticated) return;
+    try {
+      const res = await axios.get(`${API_URL}/categories`);
+      setCategories(res.data);
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+    }
+  }, [isAuthenticated]);
+
+  //load initial data
   useEffect(() => {
     if (isAuthenticated) {
       fetchTasks();
+      fetchCategories();
     } else {
       setTasks([]);
+      setCategories([]);
     }
-  }, [isAuthenticated]); 
+  }, [isAuthenticated, fetchTasks, fetchCategories]);
 
   const addTask = async (taskData) => {
     try {
@@ -55,14 +70,14 @@ export const TaskProvider = ({ children }) => {
 
   const updateTask = async (id, updatedData) => {
     try {
-      //confident update
+      //local state update
       setTasks((prev) =>
         prev.map((t) => (t._id === id ? { ...t, ...updatedData } : t))
       );
 
       const res = await axios.put(`${API_URL}/tasks/${id}`, updatedData);
       
-      //update with server response to ensure sync
+      //sync with server
       setTasks((prev) =>
         prev.map((t) => (t._id === id ? res.data : t))
       );
@@ -75,7 +90,7 @@ export const TaskProvider = ({ children }) => {
 
   const deleteTask = async (id) => {
     try {
-      //confident update
+      //local state update
       setTasks((prev) => prev.filter((t) => t._id !== id));
       await axios.delete(`${API_URL}/tasks/${id}`);
       return { success: true };
@@ -90,9 +105,11 @@ export const TaskProvider = ({ children }) => {
     <TaskContext.Provider
       value={{
         tasks,
+        categories,
         loading,
         error,
         fetchTasks,
+        fetchCategories,
         addTask,
         updateTask,
         deleteTask,

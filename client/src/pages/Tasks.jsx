@@ -9,16 +9,21 @@ import { useParams } from "react-router-dom";
 function Tasks() {
   const { isAuthenticated } = useContext(AuthContext);
   const { tasks, loading, addTask, updateTask, deleteTask } = useContext(TaskContext);
-  const { filter } = useParams(); // pending or completed
+  const { filter, categoryName } = useParams(); // pending, completed or categoryName
   const [modalOpen, setModalOpen] = useState(false);
   const [editTask, setEditTask] = useState(null);
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, taskId: null });
   const [priorityFilter, setPriorityFilter] = useState('all');
 
   const filteredTasks = tasks.filter((t) => {
-    //filter by status
-    const statusMatch = filter 
+    //filter by status (if filter is pending/completed)
+    const statusMatch = (filter === "completed" || filter === "pending")
       ? (filter === "completed" ? t.completed : !t.completed)
+      : true;
+    
+    //filter by category (if categoryName exists)
+    const categoryMatch = categoryName 
+      ? (t.categories || []).includes(categoryName)
       : true;
     
     //filter by priority
@@ -26,15 +31,20 @@ function Tasks() {
       ? true 
       : t.priority === priorityFilter;
 
-    return statusMatch && priorityMatch;
+    return statusMatch && categoryMatch && priorityMatch;
   });
 
   const handleAddOrUpdate = async (taskData) => {
+    const finalData = {
+      ...taskData,
+      category: taskData.category || categoryName || ''
+    };
+
     if (editTask) {
-      await updateTask(editTask._id, taskData);
+      await updateTask(editTask._id, finalData);
       setEditTask(null);
     } else {
-      await addTask(taskData);
+      await addTask(finalData);
     }
   };
 
@@ -65,8 +75,22 @@ function Tasks() {
   }
 
   let pageIcon = "📋"; 
-  if (filter === "pending") pageIcon = "⏳";
-  else if (filter === "completed") pageIcon = "✅";
+  let pageTitle = "All Tasks";
+
+  if (filter === "pending") {
+    pageIcon = "⏳";
+    pageTitle = "Pending Tasks";
+  } else if (filter === "completed") {
+    pageIcon = "✅";
+    pageTitle = "Completed Tasks";
+  } else if (categoryName) {
+    pageTitle = `${categoryName} Tasks`;
+    // Map icons for title
+    if (categoryName === 'Work') pageIcon = "💼";
+    else if (categoryName === 'Personal') pageIcon = "🏠";
+    else if (categoryName === 'Urgent') pageIcon = "🚨";
+    else if (categoryName === 'Ideas') pageIcon = "💡";
+  }
 
   return (
     <div className="page-container">
@@ -75,20 +99,22 @@ function Tasks() {
         <div className="page-title">
           <div className="title-icon">{pageIcon}</div>
           <div>
-            <h1>{filter ? `${filter.charAt(0).toUpperCase() + filter.slice(1)} Tasks` : "All Tasks"}</h1>
+            <h1>{pageTitle}</h1>
             <p>{filteredTasks.length} task(s) found</p>
           </div>
         </div>
-        <button className="add-task-btn" onClick={() => setModalOpen(true)}>
-          + Add New Task
-        </button>
+        {!categoryName && (
+          <button className="add-task-btn" onClick={() => setModalOpen(true)}>
+            + Add New Task
+          </button>
+        )}
       </div>
 
       <div className="task-section full-height">
-        {/*task section header with "tasks" and triority filters */}
+        {/*task section header with priority filters */}
         <div className="task-section-header">
           <div className="task-section-title">
-            <h2>Tasks</h2>
+            <h2>{categoryName ? `${categoryName}` : 'Tasks'}</h2>
           </div>
           <div className="task-filters">
             <button 
@@ -144,6 +170,7 @@ function Tasks() {
           }}
           onSubmit={handleAddOrUpdate}
           task={editTask}
+          defaultCategory={categoryName}
         />
 
         <ConfirmationModal

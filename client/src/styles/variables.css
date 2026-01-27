@@ -1,8 +1,8 @@
 
-/*global variables & theme */
+/* theme variables */
 
 :root {
-  /*default dark mode */
+  /* dark mode */
   --bg-primary: #121218;
   --bg-secondary: #1a1a2e;
   --bg-tertiary: #1a1a2e;
@@ -30,7 +30,7 @@
 }
 
 body.light-mode {
-  /*light theme overrides */
+  /* light mode overrides */
   --bg-primary: #f5f5fa;
   --bg-secondary: #ffffff;
   --bg-tertiary: #ffffff;
@@ -69,7 +69,7 @@ body {
   overflow-y: auto;
 }
 
-/* auth page scroll handle */
+/*auth page layout */
 body:has(.auth-page) {
   overflow: hidden;
 }

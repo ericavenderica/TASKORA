@@ -24,6 +24,7 @@ function AppContent() {
             <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
+            <Route path="/tasks/category/:categoryName" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
             <Route path="/tasks/:filter" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
             <Route path="/not-found" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/not-found" replace />} />

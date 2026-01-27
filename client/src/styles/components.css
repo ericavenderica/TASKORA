@@ -136,3 +136,20 @@
   border-left-color: var(--accent-primary);
   font-weight: 600;
 }
+
+.sidebar-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 1.5rem 1rem;
+  opacity: 0.3;
+}
+
+.sidebar-section-title {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0 1.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+}
