@@ -14,7 +14,7 @@ export const TaskProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  //fetch projects
+  //fetch projects from API
   const fetchTasks = useCallback(async (force = false) => {
     if (!isAuthenticated) return;
     
@@ -35,7 +35,7 @@ export const TaskProvider = ({ children }) => {
     }
   }, [isAuthenticated, tasks.length]);
 
-  //fetch categories
+  //fetch categories from API
   const fetchCategories = useCallback(async () => {
     if (!isAuthenticated) return;
     try {
@@ -46,7 +46,7 @@ export const TaskProvider = ({ children }) => {
     }
   }, [isAuthenticated]);
 
-  //load initial data
+  //load initial application data
   useEffect(() => {
     if (isAuthenticated) {
       fetchTasks();
@@ -70,14 +70,14 @@ export const TaskProvider = ({ children }) => {
 
   const updateTask = async (id, updatedData) => {
     try {
-      //update UI state
+      //refresh local state first for better UX
       setTasks((prev) =>
         prev.map((t) => (t._id === id ? { ...t, ...updatedData } : t))
       );
 
       const res = await axios.put(`${API_URL}/projects/${id}`, updatedData);
       
-      //sync with server data
+      //update with confirmed data from the server
       setTasks((prev) =>
         prev.map((t) => (t._id === id ? res.data : t))
       );
@@ -90,7 +90,7 @@ export const TaskProvider = ({ children }) => {
 
   const deleteTask = async (id) => {
     try {
-      //update UI state
+      //remove from state immediately
       setTasks((prev) => prev.filter((t) => t._id !== id));
       await axios.delete(`${API_URL}/projects/${id}`);
       return { success: true };

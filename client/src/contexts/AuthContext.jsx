@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  //set auth token header
+  // Handle authorization header
   const setAuthToken = (token) => {
     if (token) {
       axios.defaults.headers.common["x-auth-token"] = token;
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
       setToken(res.data.token);
       setAuthToken(res.data.token);
       
-      //load user after registration
+      // Get user profile after successful registration
       const userRes = await axios.get(`${API_URL}/auth/me`);
       setUser(userRes.data);
       setIsAuthenticated(true);
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
       setToken(res.data.token);
       setAuthToken(res.data.token);
 
-      //fetch user data
+      // Get user profile after login
       const userRes = await axios.get(`${API_URL}/auth/me`);
       setUser(userRes.data);
       setIsAuthenticated(true);

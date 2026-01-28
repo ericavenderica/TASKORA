@@ -110,7 +110,7 @@ function Dashboard() {
           <Link to="/tasks" style={{color: '#5C5C99', fontWeight: 'bold'}}>View All</Link>
         </div>
 
-        <div className="task-list">
+        <div className="project-list">
           {tasks.slice(0, 3).map((task) => (
             <TaskItem
               key={task._id}
@@ -120,7 +120,7 @@ function Dashboard() {
               onDelete={handleDeleteClick}
             />
           ))}
-          {tasks.length === 0 && <p className="no-tasks">No recent activity.</p>}
+          {tasks.length === 0 && <p className="no-projects">No recent activity.</p>}
         </div>
       </div>
 
@@ -138,8 +138,8 @@ function Dashboard() {
         isOpen={confirmModal.isOpen}
         onClose={() => setConfirmModal({ isOpen: false, taskId: null })}
         onConfirm={handleConfirmDelete}
-        title="Delete Task"
-        message="Are you sure you want to delete this task? This action cannot be undone."
+        title="Delete Project"
+        message="Are you sure you want to delete this project? This action cannot be undone."
       />
     </div>
   );

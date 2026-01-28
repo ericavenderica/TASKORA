@@ -66,7 +66,7 @@ function TaskModal({ isOpen, onClose, onSubmit, task = null, defaultCategory = '
       return;
     }
 
-    //to prevent duplicating tasks in the same set of categories
+    // Check for duplicate titles in the same categories
     const isDuplicate = tasks.some(t => 
       t.title.toLowerCase().trim() === formData.title.toLowerCase().trim() && 
       JSON.stringify(t.categories?.sort()) === JSON.stringify(formData.categories?.sort()) &&
@@ -74,7 +74,7 @@ function TaskModal({ isOpen, onClose, onSubmit, task = null, defaultCategory = '
     );
 
     if (isDuplicate) {
-      setError(`You already have a task named "${formData.title}" with these categories.`);
+      setError(`A project with the name "${formData.title}" already exists in these categories.`);
       return;
     }
 
@@ -88,7 +88,7 @@ function TaskModal({ isOpen, onClose, onSubmit, task = null, defaultCategory = '
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2 className="modal-title">{task ? 'Edit Task' : 'Add New Project'}</h2>
+          <h2 className="modal-title">{task ? 'Edit Project' : 'Add New Project'}</h2>
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
         <form className="modal-form" onSubmit={handleSubmit}>
@@ -110,7 +110,7 @@ function TaskModal({ isOpen, onClose, onSubmit, task = null, defaultCategory = '
               name="description" 
               value={formData.description} 
               onChange={handleChange} 
-              placeholder="Enter task description (optional)" 
+              placeholder="Enter project description (optional)" 
             />
           </div>
 
@@ -167,7 +167,7 @@ function TaskModal({ isOpen, onClose, onSubmit, task = null, defaultCategory = '
 
           <div className="modal-actions">
             <button type="button" className="modal-btn secondary" onClick={onClose}>Cancel</button>
-            <button type="submit" className="modal-btn primary">{task ? 'Update Task' : 'Add Task'}</button>
+            <button type="submit" className="modal-btn primary">{task ? 'Update Project' : 'Add Project'}</button>
           </div>
         </form>
       </div>

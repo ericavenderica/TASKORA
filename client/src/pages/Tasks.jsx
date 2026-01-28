@@ -144,7 +144,7 @@ function Tasks() {
           </div>
         </div>
 
-        <div className="task-list">
+        <div className="project-list">
           {filteredTasks.length > 0 ? (
             filteredTasks.map((task) => (
               <TaskItem
@@ -156,8 +156,8 @@ function Tasks() {
               />
             ))
           ) : (
-            <div className="no-tasks">
-              <p>No tasks found.</p>
+            <div className="no-projects">
+              <p>No projects found.</p>
             </div>
           )}
         </div>
@@ -177,8 +177,8 @@ function Tasks() {
           isOpen={confirmModal.isOpen}
           onClose={() => setConfirmModal({ isOpen: false, taskId: null })}
           onConfirm={handleConfirmDelete}
-          title="Delete Task"
-          message="Are you sure you want to delete this task? "
+          title="Delete Project"
+          message="Are you sure you want to delete this project?"
         />
       </div>
     </div>
