@@ -35,7 +35,7 @@ export const TaskProvider = ({ children }) => {
     }
   }, [isAuthenticated, tasks.length]);
 
-  //Fetch categories
+  //fetch categories
   const fetchCategories = useCallback(async () => {
     if (!isAuthenticated) return;
     try {
@@ -70,14 +70,14 @@ export const TaskProvider = ({ children }) => {
 
   const updateTask = async (id, updatedData) => {
     try {
-      //local state update
+      //update UI state
       setTasks((prev) =>
         prev.map((t) => (t._id === id ? { ...t, ...updatedData } : t))
       );
 
       const res = await axios.put(`${API_URL}/projects/${id}`, updatedData);
       
-      //sync with server
+      //sync with server data
       setTasks((prev) =>
         prev.map((t) => (t._id === id ? res.data : t))
       );
@@ -90,7 +90,7 @@ export const TaskProvider = ({ children }) => {
 
   const deleteTask = async (id) => {
     try {
-      //local state update
+      //update UI state
       setTasks((prev) => prev.filter((t) => t._id !== id));
       await axios.delete(`${API_URL}/projects/${id}`);
       return { success: true };
