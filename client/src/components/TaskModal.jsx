@@ -13,10 +13,10 @@ function TaskModal({ isOpen, onClose, onSubmit, task = null, defaultCategory = '
   const [error, setError] = useState('');
 
   const categoryOptions = [
-    { value: "Work", label: "Work (💼)" },
-    { value: "Personal", label: "Personal (🏠)" },
-    { value: "Urgent", label: "Urgent (🚨)" },
-    { value: "Ideas", label: "Ideas (💡)" }
+    { value: "Work Projects", label: "Work Projects (💼)" },
+    { value: "Personal Projects", label: "Personal Projects (🏠)" },
+    { value: "Urgent Projects", label: "Urgent Projects (🚨)" },
+    { value: "Project Ideas", label: "Project Ideas (💡)" }
   ];
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function TaskModal({ isOpen, onClose, onSubmit, task = null, defaultCategory = '
     e.preventDefault();
     
     if (!formData.title.trim()) {
-      setError('Please enter a task title');
+      setError('Please enter a project title');
       return;
     }
 
@@ -88,18 +88,18 @@ function TaskModal({ isOpen, onClose, onSubmit, task = null, defaultCategory = '
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2 className="modal-title">{task ? 'Edit Task' : 'Add New Task'}</h2>
+          <h2 className="modal-title">{task ? 'Edit Task' : 'Add New Project'}</h2>
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
         <form className="modal-form" onSubmit={handleSubmit}>
           {error && <div className="auth-error" style={{marginBottom: '1rem'}}>{error}</div>}
           <div className="form-group">
-            <label>Task Title *</label>
+            <label>Project Title *</label>
             <input 
               name="title" 
               value={formData.title} 
               onChange={handleChange} 
-              placeholder="Enter task title" 
+              placeholder="Enter project title" 
               required 
             />
           </div>

@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Set auth token header
+  //set auth token header
   const setAuthToken = (token) => {
     if (token) {
       axios.defaults.headers.common["x-auth-token"] = token;
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
       setToken(res.data.token);
       setAuthToken(res.data.token);
       
-      // Load user after registration
+      //load user after registration
       const userRes = await axios.get("http://localhost:5005/api/auth/me");
       setUser(userRes.data);
       setIsAuthenticated(true);
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }) => {
       setToken(res.data.token);
       setAuthToken(res.data.token);
 
-      // Fetch user data
+      //fetch user data
       const userRes = await axios.get("http://localhost:5005/api/auth/me");
       setUser(userRes.data);
       setIsAuthenticated(true);

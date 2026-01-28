@@ -75,21 +75,21 @@ function Tasks() {
   }
 
   let pageIcon = "📋"; 
-  let pageTitle = "All Tasks";
+  let pageTitle = "All Projects";
 
   if (filter === "pending") {
     pageIcon = "⏳";
-    pageTitle = "Pending Tasks";
+    pageTitle = "Pending Projects";
   } else if (filter === "completed") {
     pageIcon = "✅";
-    pageTitle = "Completed Tasks";
+    pageTitle = "Completed Projects";
   } else if (categoryName) {
-    pageTitle = `${categoryName} Tasks`;
-    // Map icons for title
-    if (categoryName === 'Work') pageIcon = "💼";
-    else if (categoryName === 'Personal') pageIcon = "🏠";
-    else if (categoryName === 'Urgent') pageIcon = "🚨";
-    else if (categoryName === 'Ideas') pageIcon = "💡";
+    pageTitle = categoryName;
+    //mapping icons for title
+    if (categoryName === 'Work Projects') pageIcon = "💼";
+    else if (categoryName === 'Personal Projects') pageIcon = "🏠";
+    else if (categoryName === 'Urgent Projects') pageIcon = "🚨";
+    else if (categoryName === 'Project Ideas') pageIcon = "💡";
   }
 
   return (
@@ -100,12 +100,12 @@ function Tasks() {
           <div className="title-icon">{pageIcon}</div>
           <div>
             <h1>{pageTitle}</h1>
-            <p>{filteredTasks.length} task(s) found</p>
+            <p>{filteredTasks.length} project(s) found</p>
           </div>
         </div>
         {!categoryName && (
           <button className="add-task-btn" onClick={() => setModalOpen(true)}>
-            + Add New Task
+            + Add New Project
           </button>
         )}
       </div>
@@ -114,7 +114,7 @@ function Tasks() {
         {/*task section header with priority filters */}
         <div className="task-section-header">
           <div className="task-section-title">
-            <h2>{categoryName ? `${categoryName}` : 'Tasks'}</h2>
+            <h2>{categoryName ? categoryName.replace(' Projects', '').replace('Project ', '') : 'Projects'}</h2>
           </div>
           <div className="task-filters">
             <button 
@@ -178,7 +178,7 @@ function Tasks() {
           onClose={() => setConfirmModal({ isOpen: false, taskId: null })}
           onConfirm={handleConfirmDelete}
           title="Delete Task"
-          message="Are you sure you want to delete this task? This action cannot be undone."
+          message="Are you sure you want to delete this task? "
         />
       </div>
     </div>

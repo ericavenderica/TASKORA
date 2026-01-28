@@ -21,10 +21,10 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
               {(task.categories || []).map(cat => (
                 <span key={cat} className="category-tag" style={{
                   backgroundColor: 
-                    cat === 'Work' ? '#5C5C99' :
-                    cat === 'Personal' ? '#00cc00' :
-                    cat === 'Urgent' ? '#ff4444' :
-                    cat === 'Ideas' ? '#ff00ff' : '#5C5C99',
+                    cat === 'Work Projects' ? '#5C5C99' :
+                    cat === 'Personal Projects' ? '#00cc00' :
+                    cat === 'Urgent Projects' ? '#ff4444' :
+                    cat === 'Project Ideas' ? '#ff00ff' : '#5C5C99',
                   color: 'white',
                   padding: '1px 6px',
                   borderRadius: '4px',

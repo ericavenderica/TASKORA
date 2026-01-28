@@ -44,7 +44,7 @@ function Dashboard() {
     setModalOpen(true);
   };
 
-  // Stats
+  //stats
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(t => t.completed).length;
   const pendingTasks = totalTasks - completedTasks;
@@ -61,13 +61,13 @@ function Dashboard() {
           <div className="page-title">
             <div className="title-icon">📊</div>
             <div>
-              <h1>Task Overview</h1>
-              <p>Manage your tasks efficiently</p>
+              <h1>Project Overview</h1>
+            <p>Manage your projects efficiently</p>
             </div>
           </div>
         </div>
         <button className="add-task-btn" onClick={() => setModalOpen(true)}>
-          + Add New Task
+          + Add New Project
         </button>
       </div>
 
@@ -76,7 +76,7 @@ function Dashboard() {
           <div className="stat-icon total">📄</div>
           <div className="stat-info">
             <h3>{totalTasks}</h3>
-            <p>Total Tasks</p>
+            <p>Total Projects</p>
           </div>
         </div>
         <div className="stat-card">
