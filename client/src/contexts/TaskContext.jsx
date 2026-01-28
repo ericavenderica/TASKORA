@@ -14,7 +14,7 @@ export const TaskProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  //fetch tasks
+  //fetch projects
   const fetchTasks = useCallback(async (force = false) => {
     if (!isAuthenticated) return;
     
@@ -24,18 +24,18 @@ export const TaskProvider = ({ children }) => {
 
     try {
       setLoading(tasks.length === 0); 
-      const res = await axios.get(`${API_URL}/tasks`);
+      const res = await axios.get(`${API_URL}/projects`);
       setTasks(res.data);
       setError(null);
     } catch (err) {
-      console.error("Error fetching tasks:", err);
-      setError("Failed to fetch tasks");
+      console.error("Error fetching projects:", err);
+      setError("Failed to fetch projects");
     } finally {
       setLoading(false);
     }
   }, [isAuthenticated, tasks.length]);
 
-  // Fetch categories
+  //Fetch categories
   const fetchCategories = useCallback(async () => {
     if (!isAuthenticated) return;
     try {
@@ -59,11 +59,11 @@ export const TaskProvider = ({ children }) => {
 
   const addTask = async (taskData) => {
     try {
-      const res = await axios.post(`${API_URL}/tasks`, taskData);
+      const res = await axios.post(`${API_URL}/projects`, taskData);
       setTasks((prev) => [res.data, ...prev]);
       return { success: true, data: res.data };
     } catch (err) {
-      console.error("Error adding task:", err);
+      console.error("Error adding project:", err);
       return { success: false, error: err.message };
     }
   };
@@ -75,7 +75,7 @@ export const TaskProvider = ({ children }) => {
         prev.map((t) => (t._id === id ? { ...t, ...updatedData } : t))
       );
 
-      const res = await axios.put(`${API_URL}/tasks/${id}`, updatedData);
+      const res = await axios.put(`${API_URL}/projects/${id}`, updatedData);
       
       //sync with server
       setTasks((prev) =>
@@ -83,7 +83,7 @@ export const TaskProvider = ({ children }) => {
       );
       return { success: true };
     } catch (err) {
-      console.error("Error updating task:", err);
+      console.error("Error updating project:", err);
       return { success: false, error: err.message };
     }
   };
@@ -92,10 +92,10 @@ export const TaskProvider = ({ children }) => {
     try {
       //local state update
       setTasks((prev) => prev.filter((t) => t._id !== id));
-      await axios.delete(`${API_URL}/tasks/${id}`);
+      await axios.delete(`${API_URL}/projects/${id}`);
       return { success: true };
     } catch (err) {
-      console.error("Error deleting task:", err);
+      console.error("Error deleting project:", err);
       fetchTasks(true);
       return { success: false, error: err.message };
     }

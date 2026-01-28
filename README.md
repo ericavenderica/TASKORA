@@ -1,13 +1,13 @@
 # Taskora 🚀
 
-Taskora is a modern, full-stack project management application built with the MERN stack (MongoDB, Express.js, React, Node.js). It helps you organize your tasks efficiently with features like priority filtering, dark mode, and a responsive user interface.
+Taskora is a modern, full-stack project management application built with the MERN stack (MongoDB, Express.js, React, Node.js). It helps you organize your projects efficiently with features like priority filtering, dark mode, and a responsive user interface.
 
 ## ✨ Features
 
 - **Authentication**: Secure Login and Registration using JWT.
-- **Task Management**: Create, Read, Update, and Delete (CRUD) tasks.
-- **Filtering**: Filter tasks by status (Pending/Completed) and Priority (High/Medium/Low).
-- **Dashboard**: Overview of task statistics and recent activity.
+- **Project Management**: Create, Read, Update, and Delete (CRUD) projects.
+- **Filtering**: Filter projects by status (Pending/Completed) and Priority (High/Medium/Low).
+- **Dashboard**: Overview of project statistics and recent activity.
 - **Theming**: Built-in Dark Mode and Light Mode toggle.
 - **Responsive Design**: Optimized for desktop and mobile devices.
 
@@ -40,7 +40,7 @@ cd Taskora
 Navigate to the server folder and install dependencies:
 
 ```bash
-cd server
+cd Taskora-Server/server
 npm install
 ```
 
@@ -88,19 +88,22 @@ Taskora/
 │   │   └── App.css      # Global Styles & Theming
 │   └── package.json
 │
-└── server/          # Backend Node.js Application
-    ├── models/      # Mongoose Database Models
-    ├── routes/      # API Routes (Auth, Tasks)
-    ├── middleware/  # Auth Middleware
-    └── server.js    # Entry Point
+└── Taskora-Server/  # Backend Node.js Application
+    └── server/
+        ├── db/          # Database connection
+        ├── config/      # Middleware configuration
+        ├── error-handling/ # Global error handlers
+        ├── models/      # Mongoose Database Models
+        ├── routes/      # API Routes (Auth, Projects)
+        └── server.js    # Entry Point
 ```
 
 ## 📝 Usage
 
 1.  **Register** a new account.
 2.  **Login** to access your dashboard.
-3.  Use the **"Add New Task"** button to create tasks.
-4.  Use the **Sidebar** to navigate between Dashboard, All Tasks, Pending, and Completed.
+3.  Use the **"Add New Project"** button to create projects.
+4.  Use the **Sidebar** to navigate between Dashboard, All Projects, Pending, and Completed.
 5.  Use the **Priority Buttons** (High, Medium, Low) to filter your view.
 6.  Toggle the **Sun/Moon icon** in the navbar to switch themes.
 

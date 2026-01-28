@@ -3,6 +3,8 @@ import axios from "axios";
 
 export const AuthContext = createContext();
 
+const API_URL = "http://localhost:5005/api";
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -28,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const res = await axios.get("http://localhost:5005/api/auth/me");
+        const res = await axios.get(`${API_URL}/auth/me`);
         setUser(res.data);
         setIsAuthenticated(true);
       } catch (err) {
@@ -53,14 +55,14 @@ export const AuthProvider = ({ children }) => {
     };
 
     try {
-      const res = await axios.post("http://localhost:5005/api/auth/register", formData, config);
+      const res = await axios.post(`${API_URL}/auth/register`, formData, config);
       
       localStorage.setItem("token", res.data.token);
       setToken(res.data.token);
       setAuthToken(res.data.token);
       
       //load user after registration
-      const userRes = await axios.get("http://localhost:5005/api/auth/me");
+      const userRes = await axios.get(`${API_URL}/auth/me`);
       setUser(userRes.data);
       setIsAuthenticated(true);
       return { success: true };
@@ -81,14 +83,14 @@ export const AuthProvider = ({ children }) => {
     };
 
     try {
-      const res = await axios.post("http://localhost:5005/api/auth/login", formData, config);
+      const res = await axios.post(`${API_URL}/auth/login`, formData, config);
       
       localStorage.setItem("token", res.data.token);
       setToken(res.data.token);
       setAuthToken(res.data.token);
 
       //fetch user data
-      const userRes = await axios.get("http://localhost:5005/api/auth/me");
+      const userRes = await axios.get(`${API_URL}/auth/me`);
       setUser(userRes.data);
       setIsAuthenticated(true);
       return { success: true };
