@@ -5,7 +5,7 @@ import { AuthContext } from "./AuthContext";
 export const TaskContext = createContext();
 
 // API configuration
-const API_URL = "http://localhost:5005/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005/api";
 
 export const TaskProvider = ({ children }) => {
   const { isAuthenticated } = useContext(AuthContext);
