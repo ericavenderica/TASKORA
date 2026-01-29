@@ -61,8 +61,10 @@ function Tasks() {
 
   const handleConfirmDelete = async () => {
     if (!confirmModal.taskId) return;
-    await deleteTask(confirmModal.taskId);
+    const idToDelete = confirmModal.taskId;
+
     setConfirmModal({ isOpen: false, taskId: null });
+    await deleteTask(idToDelete);
   };
 
   const handleEdit = (task) => {
