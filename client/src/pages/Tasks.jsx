@@ -59,7 +59,12 @@ function Tasks() {
     setConfirmModal({ isOpen: true, taskId: id });
   };
 
-  const handleConfirmDelete = async () => {
+  const handleConfirmDelete = async (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     if (!confirmModal.taskId) return;
     const idToDelete = confirmModal.taskId;
 

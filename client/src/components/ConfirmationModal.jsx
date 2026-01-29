@@ -16,7 +16,11 @@ function ConfirmationModal({ isOpen, onClose, onConfirm, title, message }) {
         </div>
 
         <div className="modal-actions">
-          <button type="button" className="modal-btn secondary" onClick={onClose}>Cancel</button>
+          <button type="button" className="modal-btn secondary" onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClose();
+          }}>Cancel</button>
           <button type="button" className="modal-btn delete" onClick={onConfirm}>Delete</button>
         </div>
       </div>

@@ -54,8 +54,16 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
         )}
         
         <div className="task-actions">
-          <button className="task-action-btn edit" onClick={() => onEdit(task)}>✏️</button>
-          <button className="task-action-btn delete" onClick={() => onDelete(task._id)}>🗑️</button>
+          <button className="task-action-btn edit" onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onEdit(task);
+          }}>✏️</button>
+          <button className="task-action-btn delete" onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onDelete(task._id);
+          }}>🗑️</button>
         </div>
       </div>
     </div>

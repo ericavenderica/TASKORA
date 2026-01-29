@@ -33,7 +33,12 @@ function Dashboard() {
     setConfirmModal({ isOpen: true, taskId: id });
   };
 
-  const handleConfirmDelete = async () => {
+  const handleConfirmDelete = async (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     if (!confirmModal.taskId) return;
     const idToDelete = confirmModal.taskId;
     // Close modal first for better UX
@@ -109,7 +114,7 @@ function Dashboard() {
           <div className="task-section-title">
              <h2>Recent Activity</h2>
           </div>
-          <Link to="/tasks" style={{color: '#5C5C99', fontWeight: 'bold'}}>View All</Link>
+          <Link to="/projects" style={{color: '#5C5C99', fontWeight: 'bold'}}>View All</Link>
         </div>
 
         <div className="project-list">
